@@ -1,0 +1,28 @@
+#Contributor Antti Oja <antti.bofh(AT)gmail.com>
+#Contributor Jakob Gruber <jakob.gruber(AT)kabelnet.at>
+pkgname=rt2870
+pkgver=2.3.0.0
+pkgrel=3
+pkgdesc="Drivers for rt2870 chipset wireless cards"
+arch=('i686' 'x86_64')
+url="http://eng.ralinktech.com.tw/support.php?s=2"
+depends=('kernel26>=2.6.32' 'kernel26-headers')
+license="GPL"
+install=install.rt2870
+source=('http://dl.dropbox.com/u/169548/RT2870_LinuxSTA_V2.3.0.0_20091204.tgz')
+md5sums=('cae7bd90bf9ca1a949f5e0d03d3e04fc')
+
+build() {
+
+  cd $srcdir/DPO_RT2870_LinuxSTA_V2.3.0.0
+
+  #configure for being controlled by NetworkManager or wpa_supplicant wext functions
+
+  sed "s#HAS_WPA_SUPPLICANT=n#HAS_WPA_SUPPLICANT=y#" -i os/linux/config.mk || return 1
+  sed "s#HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=n#HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y#" -i os/linux/config.mk || return 1
+  
+  make || return 1
+
+  install -D -m 755 os/linux/rt2870sta.ko $pkgdir/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rt2870sta.ko
+  install -D -m 644 RT2870STA.dat $pkgdir/etc/Wireless/RT2870STA/RT2870STA.dat
+}

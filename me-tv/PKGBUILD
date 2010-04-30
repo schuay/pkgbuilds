@@ -1,0 +1,29 @@
+#Maintainer: jakob gruber <jakob.gruber@gmail.com>
+#Contributor: gborzi
+#Previous Contributor: Vinzenz Vietzke <vinz@archlinux.us>
+#Previous Maintainer: Vinzenz Vietzke <vinz@archlinux.us>
+#Previous Contributor: Heiko Baums <heiko@baums-on-web.de>
+#Previous Contributor: Jeff Bailes <thepizzaking@gmail.com>
+pkgname=me-tv
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="A digital television (DVB) viewer for GNOME using Xine."
+arch=('i686' 'x86_64')
+url="https://launchpad.net/me-tv"
+license=('GPL')
+depends=('glibmm' 'gtkmm' 'gconfmm' 'glib2' 'xine-lib' 'sqlite3' 'linuxtv-dvb-apps' 'libunique')
+makedepends=('intltool')
+install=me-tv.install
+source=(http://launchpad.net/$pkgname/1.2/$pkgver/+download/$pkgname-$pkgver.tar.gz)
+options=('!emptydirs')
+md5sums=('a99c27bae2fe693324df4f9769e60afe')
+
+build() {
+	cd $srcdir/$pkgname-$pkgver
+	./configure CXXFLAGS="$CXXFLAGS -D__KERNEL_STRICT_NAMES" --prefix=/usr || return 1
+	make || return 1
+	make -j1 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR=$pkgdir install || return 1
+	install -m755 -d "${pkgdir}/usr/share/gconf/schemas"
+	gconf-merge-schema "${pkgdir}/usr/share/gconf/schemas/${pkgname}.schemas" --domain me-tv ${pkgdir}/usr/etc/gconf/schemas/*.schemas || return 1
+	rm -f ${pkgdir}/usr/etc/gconf/schemas/*.schemas
+}

@@ -1,0 +1,35 @@
+# Maintainer: Jakob Gruber (jakob dot gruber at kabelnet dot at)
+ 
+_pkgname="mobile-broadband-provider-info"
+pkgname="$_pkgname-git"
+pkgver=20090822
+pkgdesc="Mobile broadband provider database."
+pkgrel=2
+arch=('any')
+url="http://git.gnome.org/cgit/mobile-broadband-provider-info/"
+license=('CC-PD')
+depends=()
+makedepends=('git')
+
+build() {
+  #clean source dir
+  rm -rf "$srcdir"/"$_pkgname"
+
+  #git checkout
+  cd $srcdir
+  git clone git://git.gnome.org/mobile-broadband-provider-info || return 1 
+  cd $srcdir/$_pkgname
+
+  #install
+  mkdir -p $pkgdir/usr/share/{,doc/}$_pkgname/
+  cp    COPYING \
+  	README.svn \
+  	ChangeLog \
+  	NEWS \
+  	authors.svn2cl \
+  	MAINTAINERS \
+  	README "$pkgdir/usr/share/doc/$_pkgname/"
+  cp    serviceproviders.2.dtd \
+  	serviceproviders.xml "$pkgdir/usr/share/$_pkgname/"
+}
+
