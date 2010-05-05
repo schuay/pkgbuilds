@@ -7,15 +7,15 @@ pkgrel=1
 arch=('i686' 'x86_64')
 url="http://github.com/schuay/$pkgname/"
 license=('GPL')
-source=("http://github.com/schuay/$pkgname/tarball/$pkgname-$pkgver")
-md5sums=('a6edd987ea407d7d6ee6032c8495c63b')
+source=("http://github.com/downloads/schuay/$pkgname/$pkgname-$pkgver.tar.bz2")
+md5sums=('1e01f4224da2cfb4204d610c3b335338')
 depends=('sdl_gfx' 'sdl_image' 'sdl_ttf' 'qt')
 makedepends=('boost')
 
 build() {
 
   # github names tag downloads after the tag commit
-  cd $srcdir/schuay-$pkgname-$pkgname-$pkgver-0-g9afa53a || return 1
+  cd $srcdir || return 1
 
   # set file path
   sed -i 's_#define FILEPREFIX.*_#define FILEPREFIX "/usr/share/picmi/"_' src/b_painter.h || return 1

@@ -7,15 +7,15 @@ pkgrel=1
 arch=('i686' 'x86_64')
 url="http://github.com/schuay/pacman/"
 license=('GPL')
-source=("http://github.com/schuay/pacman/tarball/pacman-$pkgver")
-md5sums=('61af0205da6dc2350ceafb8ca2c42dd6')
+source=("http://github.com/downloads/schuay/pacman/pacman-$pkgver.tar.bz2")
+md5sums=('8cc780d3995579c329f297455899fff5')
 depends=('sdl_ttf' 'sdl_gfx' 'sdl_mixer' 'sdl_image')
 makedepends=('boost')
 
 build() {
 
   # github names downloads after tag commit
-  cd $srcdir/schuay-pacman-pacman-$pkgver-0-geab283a/src/
+  cd $srcdir/src/
 
   #build
   autoconf
