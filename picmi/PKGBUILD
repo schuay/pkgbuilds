@@ -1,14 +1,14 @@
 # Maintainer: Jakob Gruber (jakob gruber kabelnet at)
 
 pkgname=picmi
-pkgver=1.1.7
+pkgver=1.1.8
 pkgdesc="A picross and minesweeper clone."
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://github.com/schuay/$pkgname/"
 license=('GPL')
 source=("http://github.com/downloads/schuay/$pkgname/$pkgname-$pkgver.tar.bz2")
-md5sums=('1e01f4224da2cfb4204d610c3b335338')
+md5sums=('453b338bca0fdb2c009cb3c16101b6e2')
 depends=('sdl_gfx' 'sdl_image' 'sdl_ttf' 'qt')
 makedepends=('boost')
 
@@ -17,21 +17,9 @@ build() {
   # github names tag downloads after the tag commit
   cd $srcdir || return 1
 
-  # set file path
-  sed -i 's_#define FILEPREFIX.*_#define FILEPREFIX "/usr/share/picmi/"_' src/b_painter.h || return 1
-
   # build
   qmake || return 1
+  make setpath || return 1	#sets gfx path in source files
   make || return 1
-
-  # install
-  mkdir -p $pkgdir/usr/{bin,share/{applications,$pkgname/gfx}}
-  install -D -m755 $pkgname $pkgdir/usr/bin/
-  install -D -m644 src/$pkgname.desktop $pkgdir/usr/share/applications/
-  install -D -m644 \
-    gfx/* $pkgdir/usr/share/$pkgname/gfx/
-
-  # create symbolic link to old executable path
-  cd $pkgdir/usr/bin
-  ln -s $pkgname tuxpicross
+  make INSTALL_ROOT=$pkgdir install || return 1
 }
