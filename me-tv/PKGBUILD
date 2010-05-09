@@ -5,7 +5,7 @@
 #Previous Contributor: Heiko Baums <heiko@baums-on-web.de>
 #Previous Contributor: Jeff Bailes <thepizzaking@gmail.com>
 pkgname=me-tv
-pkgver=1.2.1
+pkgver=1.2.2
 pkgrel=1
 pkgdesc="A digital television (DVB) viewer for GNOME using Xine."
 arch=('i686' 'x86_64')
@@ -16,7 +16,7 @@ makedepends=('intltool')
 install=me-tv.install
 source=(http://launchpad.net/$pkgname/1.2/$pkgver/+download/$pkgname-$pkgver.tar.gz)
 options=('!emptydirs')
-md5sums=('192043af986069f8a78eac984700ea12')
+md5sums=('1fd72fa31e1691adf4dac5e86a4738ab')
 
 build() {
 	cd $srcdir/$pkgname-$pkgver
