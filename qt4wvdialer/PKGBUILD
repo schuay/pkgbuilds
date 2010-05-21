@@ -8,6 +8,8 @@ arch=('i686' 'x86_64')
 url="http://github.com/schuay/$pkgname"
 license=('GPL')
 depends=('qt' 'wvdial')
+conflicts=('qt4wvdialer-git')
+replaces=('qt4wvdialer-git')
 source=("http://github.com/downloads/schuay/${pkgname}/${pkgname}-${pkgver}.tar.bz2" "$pkgname.desktop")
 md5sums=('2580a9dfdb10a083e3160f890d392b74' 'e6530cad1fb85453a85c8c9e53d16a91')
 
