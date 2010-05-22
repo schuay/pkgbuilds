@@ -6,25 +6,37 @@ arch=('i686' 'x86_64' 'ppc')
 url="http://crawl.develz.org/"
 depends=('lua' 'ncurses') 
 makedepends=('git' 'gcc' 'bison' 'flex')
-conflicts=('crawl' 'stone-soup')
+conflicts=('crawl' 'stone-soup' 'stone-soup-git' 'stone-soup-tile')
 license=('custom')
+backup=('usr/share/stone-soup/data/settings/init.txt' 'usr/share/stone-soup/data/settings/tiles_options.txt')
 
 _gitroot="git://repo.or.cz/crawl/crawl-nettiles.git"
 _gitname="crawl-nettiles"
+_gittag="0.7.0-nettiles21"
 
 build() {
     cd "$srcdir"
     msg "Connecting to GIT server...."
 
     if [ -d $_gitname ] ; then
-      cd $_gitname && git pull origin
+      cd $_gitname
+      git checkout master
+      git pull origin || return 1
+      git reset --hard || return 1
       msg "The local files are updated."
     else
       git clone $_gitroot $_gitname
     fi
 
+    cd $srcdir/$_gitname
+    git checkout $_gittag
+
     msg "GIT checkout done or server timeout"
     msg "Starting make..."
+
+    # avoid bugs preventing a successful compilation from git
+    patch -p0 < $startdir/debug.patch || return 1
+    patch -p0 < $startdir/gen_ver.patch || return 1
 
     cd $srcdir/$_gitname/crawl-ref/source
     sed -i 's|bin_prefix    := bin|bin_prefix    := usr/bin|' makefile || return 1
@@ -33,7 +45,7 @@ build() {
     make DESTDIR=$pkgdir \
         SAVEDIR="/usr/share/stone-soup/save" \
         DATADIR="/usr/share/stone-soup/data" \
-        USE_UNICODE=y \
+	USE_UNICODE=y \
 	NETTILES=y \
         install || return 1
 
