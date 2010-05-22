@@ -9,6 +9,8 @@ makedepends=('git' 'gcc' 'bison' 'flex')
 conflicts=('crawl' 'stone-soup' 'stone-soup-git' 'stone-soup-tile')
 license=('custom')
 backup=('usr/share/stone-soup/data/settings/init.txt' 'usr/share/stone-soup/data/settings/tiles_options.txt')
+source=('debug.patch' 'gen_ver.patch')
+md5sums=('89b14e3aa5f7fed192100e8bb11b6f79' '94150051b0644e9132cfddef1438aa1f')
 
 _gitroot="git://repo.or.cz/crawl/crawl-nettiles.git"
 _gitname="crawl-nettiles"
