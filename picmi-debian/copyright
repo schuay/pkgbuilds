@@ -1,0 +1,33 @@
+This work was packaged for Debian by:
+
+    Jakob Gruber <jakob.gruber@gmail.com> on Mon, 26 Apr 2010 19:48:15 +0200
+
+It was downloaded from http://www.github.com/schuay/picmi
+
+Upstream Author(s):
+
+    Jakob Gruber <jakob.gruber@gmail.com>
+
+Copyright:
+
+    <Copyright (C) 2010 Jakob Gruber>
+
+License:
+
+    GPL version 2
+
+The Debian packaging is:
+
+    Copyright (C) 2010 Jakob Gruber <jakob@gmail.com>
+
+# Please chose a license for your packaging work. If the program you package
+# uses a mainstream license, using the same license is the safest choice.
+# Please avoid to pick license terms that are more restrictive than the
+# packaged work, as it may make Debian's contributions unacceptable upstream.
+# If you just want it to be GPL version 3, leave the following lines in.
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.
+
+# Please also look if there are files or directories which have a
+# different copyright/license attached and list them here.
