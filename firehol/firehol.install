@@ -8,7 +8,7 @@ post_install() {
     echo 'you will need to configure firehol by checking out'
     echo 'the tutorials on http://firehol.sourceforge.net/ and'
     echo 'editing the /etc/firehol/firehol.conf file. Some'
-    echo 'example configurations have been placed in /etc/firehol.'
+    echo 'example configurations have been placed in /etc/firehol/examples.'
     echo ' '
     echo 'Firehol can be manipulated via:'
     echo ' '
