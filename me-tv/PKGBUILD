@@ -5,18 +5,18 @@
 #Previous Contributor: Heiko Baums <heiko@baums-on-web.de>
 #Previous Contributor: Jeff Bailes <thepizzaking@gmail.com>
 pkgname=me-tv
-pkgver=1.2.4
-pkgrel=2
+pkgver=1.2.5
+pkgrel=1
 pkgdesc="A digital television (DVB) viewer for GNOME using Xine."
 arch=('i686' 'x86_64')
 url="https://launchpad.net/me-tv"
 license=('GPL')
-depends=('glibmm' 'gtkmm' 'gconfmm' 'glib2' 'xine-lib' 'sqlite3' 'linuxtv-dvb-apps' 'libunique' 'gnome-screensaver')
+depends=('glibmm' 'gtkmm' 'gconfmm' 'glib2' 'xine-lib' 'sqlite3' 'linuxtv-dvb-apps' 'libunique')
 makedepends=('intltool')
 install=me-tv.install
 source=(http://launchpad.net/$pkgname/1.2/$pkgver/+download/$pkgname-$pkgver.tar.gz)
 options=('!emptydirs')
-md5sums=('4e285ae73d31389bef8d060f857ea0ed')
+md5sums=('dcf7129bf34cb9207c7c50adb881a209')
 
 build() {
 	cd $srcdir/$pkgname-$pkgver
