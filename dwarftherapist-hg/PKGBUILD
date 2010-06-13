@@ -9,7 +9,8 @@ url="http://code.google.com/p/dwarftherapist/"
 license=('MIT')
 depends=('qt')
 makedepends=('mercurial')
-conflicts=('dwarftherapist-hg')
+conflicts=('dwarftherapist-svn')
+replaces=('dwarftherapist-svn')
 source=('fix_file_path.diff' 'http://www.filebin.org/upload/updated_offsets_d17.zip')
 md5sums=('4df966a0e79937965286fe4609ba7e0f'
          '0b5934482ca7e45bf6d9388f5fe7e772')
