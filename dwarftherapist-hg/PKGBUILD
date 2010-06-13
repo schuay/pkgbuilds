@@ -2,7 +2,7 @@
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 pkgname=dwarftherapist-hg
 pkgver=0.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
 url="http://code.google.com/p/dwarftherapist/"
@@ -11,9 +11,12 @@ depends=('qt')
 makedepends=('mercurial')
 conflicts=('dwarftherapist-svn')
 replaces=('dwarftherapist-svn')
-source=('fix_file_path.diff' 'http://www.filebin.org/upload/updated_offsets_d17.zip')
+source=('fix_file_path.diff' 
+        'v0.31.06.ini'
+        'game_data.ini')
 md5sums=('4df966a0e79937965286fe4609ba7e0f'
-         '0b5934482ca7e45bf6d9388f5fe7e772')
+         'e3db36520f9820592f72fc99eca94e86'
+         '87e3029685e1b700b3e7e7c7cae77ada')
 
 _hgtrunk=https://dwarftherapist.googlecode.com/hg
 _hgmod=dwarftherapist
@@ -47,10 +50,12 @@ build() {
 
   install -Dm644 LICENSE.txt $pkgdir/usr/share/licenses/dwarftherapist/LICENSE
   install -Dm755 bin/release/DwarfTherapist $pkgdir/usr/bin/dwarftherapist
-  install -Dm644 etc/game_data.ini $pkgdir/usr/share/dwarftherapist/game_data.ini
+  #install -Dm644 etc/game_data.ini $pkgdir/usr/share/dwarftherapist/game_data.ini
   install -Dm644 etc/memory_layouts/linux/*.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
-  install -Dm644 $srcdir/etc/memory_layouts/linux/*.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
 
+  # Support for 0.31.06 taken from http://code.google.com/p/dwarftherapist/issues/detail?id=249
+  install -Dm644 $srcdir/v0.31.06.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
+  install -Dm644 $srcdir/game_data.ini $pkgdir/usr/share/dwarftherapist/game_data.ini
 }
 
 # vim:set ts=2 sw=2 et:
