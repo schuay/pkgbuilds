@@ -1,7 +1,7 @@
 # Contributor: Jakob Gruber <jakob.gruber@gmail.com>
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 pkgname=dwarftherapist-hg
-pkgver=20100613
+pkgver=0.5.4
 pkgrel=1
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
@@ -32,6 +32,7 @@ build() {
   rm -rf $srcdir/$_hgmod-build
   cp -r $srcdir/$_hgmod $srcdir/$_hgmod-build
   cd $srcdir/$_hgmod-build
+  hg checkout $pkgver || return 1
 
   # Change stupid hardcoded path to slightly less stupid hardcoded path.
   patch -Np1 < "$srcdir/fix_file_path.diff" || return 1
