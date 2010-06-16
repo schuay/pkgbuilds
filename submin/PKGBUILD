@@ -1,7 +1,7 @@
 # Maintainer: Jakob Gruber (jakob dot gruber at kabelIGNORETHISnet dot at)
 
 pkgname=submin
-pkgver=1.2.9
+pkgver=1.2.10
 pkgdesc="Web frontend for subversion/trac administration."
 pkgrel=1
 arch=('any')
@@ -9,7 +9,7 @@ url="http://supermind.nl/submin/index.html"
 license=('MIT')
 depends=('subversion' 'python' 'apache')
 source=("http://supermind.nl/submin/current/$pkgname-$pkgver.tar.gz")
-md5sums=('246e65e1a1faf3cfff71b3393e1ad27a')
+md5sums=('83e3eb6e2243d5e20d8cbf08ecd0290a')
 
 build() {
 
