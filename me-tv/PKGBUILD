@@ -7,7 +7,7 @@
 pkgname=me-tv
 pkgver=1.2.6
 pkgrel=1
-pkgdesc="A digital television (DVB) viewer for GNOME using Xine."
+pkgdesc="A GNOME desktop application for watching digital television services that use the DVB standard."
 arch=('i686' 'x86_64')
 url="https://launchpad.net/me-tv"
 license=('GPL')
