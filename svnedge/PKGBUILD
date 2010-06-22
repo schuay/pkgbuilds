@@ -7,24 +7,34 @@ pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.open.collab.net/go/csvne1_r1a/"
 license=('AGPLv3')
-depends=('python' 'openjdk6')
 install="svnedge.install"
 
-_pkgarch='x86'
-md5sums=('58a657a86b90130419677f094537159c' 'c746c20ea769161b1079ef69b1d59ae2')
 if [ $CARCH == 'x86_64' ]; then
 	_pkgarch='x86_64'
 	md5sums=('36c013c48b4c9766d5b5c09df3e40473' 'c746c20ea769161b1079ef69b1d59ae2')
+	depends=('python' 'svn' 'openjdk6' 'lib32-libidn' 'lib32-libkrb53')
+else
+	_pkgarch='x86'
+	md5sums=('58a657a86b90130419677f094537159c' 'c746c20ea769161b1079ef69b1d59ae2')
+	depends=('python' 'svn' 'openjdk6' 'libidn' 'libkrb53')
 fi
+<F3>
 source=("http://dl.dropbox.com/u/169548/CollabNetSubversionEdge-${pkgver}_linux-${_pkgarch}.tar.gz" "uname.patch")
-
 
 
 build() {
   cd $srcdir
 
-  patch -Np1 < $srcdir/uname.patch || return 1
+  # correctly determine our architecture
+  patch -Np1 < $srcdir/uname.patch
 
+  # install into /opt
   mkdir -p $pkgdir/opt/$pkgname/
-  cp -r $srcdir/csvn/* $pkgdir/opt/$pkgname/
+  cp -r $srcdir/csvn/* \
+        $srcdir/csvn/.org.opensolaris,pkg \
+	$pkgdir/opt/$pkgname/
+
+  # copy our own python bindings since the shipped bindings do not work with our python
+  cd $pkgdir/$pkgname/lib
+  ln -s /usr/lib/python2.6/site-packages/svn/ svn-python
 }
