@@ -18,7 +18,7 @@ else
 	md5sums=('58a657a86b90130419677f094537159c' 'c746c20ea769161b1079ef69b1d59ae2')
 	depends=('python' 'svn' 'openjdk6' 'libidn' 'libkrb53')
 fi
-<F3>
+
 source=("http://dl.dropbox.com/u/169548/CollabNetSubversionEdge-${pkgver}_linux-${_pkgarch}.tar.gz" "uname.patch")
 
 
@@ -35,6 +35,8 @@ build() {
 	$pkgdir/opt/$pkgname/
 
   # copy our own python bindings since the shipped bindings do not work with our python
-  cd $pkgdir/$pkgname/lib
-  ln -s /usr/lib/python2.6/site-packages/svn/ svn-python
+  cd $pkgdir/opt/$pkgname/lib/svn-python
+  rm -r $pkgdir/opt/$pkgname/lib/svn-python/*
+  ln -s /usr/lib/python2.6/site-packages/svn/
+  ln -s /usr/lib/python2.6/site-packages/libsvn/
 }
