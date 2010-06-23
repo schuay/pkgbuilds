@@ -1,22 +1,26 @@
 # Contributor: schuay <jakob dot gruber at gmail dot com>
 
 pkgname=maitreya
-pkgver=6.0_dev_2
+pkgver=6.0_dev_3
 pkgrel=1
 pkgdesc="A free software for Vedic and western astrology"
 arch=(i686 x86_64)
 license=('GPL')
 url="http://www.saravali.de/maitreya/index.html"
 depends=('wxgtk')
-source=(http://prdownloads.sourceforge.net/$pkgname/${pkgname}6-${pkgver//_/-}.tar.bz2)
+source=(http://prdownloads.sourceforge.net/$pkgname/${pkgname}-${pkgver//_/}.tar.bz2)
 install=maitreya.install
-md5sums=('732829ff0fe53b095aaeca8985a7d7a7')
+md5sums=('b862e09a6504bc128bd1fa3fb51db20c')
 
 build() {
-  cd $srcdir/${pkgname}6-${pkgver//_/-}
+  cd $srcdir/${pkgname}-${pkgver//_/}
 
   # the default build flags "-Wl, --as-needed" don't work, override them
-  ./configure --prefix=/usr LDFLAGS="-Wl,--hash-style=gnu" || return 1
+  ./configure --prefix=/usr LDFLAGS="-Wl,--hash-style=gnu"
+
+  # 'wx-config --libs' also sets --as-needed, so manually remove it from all Makefiles
+  find . -name 'Makefile' -print | while read file; do sed -i 's/-Wl,--as-needed//' $file; done
+
   make || return 1
   make DESTDIR=$pkgdir install || return 1
 }
