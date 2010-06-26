@@ -1,10 +1,16 @@
 apt-get update
-apt-get install quilt libsdl1.2-dev libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-ttf2.0-dev libqt4-dev dh-make virtualbox-ose-guest-x11 libboost-dev
+apt-get install quilt libsdl1.2-dev libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-ttf2.0-dev libqt4-dev dh-make virtualbox-ose-guest-x11 libboost-dev libboost-thread-dev
 
 extract source to pkgname-pkgver directory (BASEDIR)
 within BASEDIR, run dh_make -f ../SOURCEARCHIVE
 
-files to edit / replace: changelog, control, install, rules
-files to delete: README.*
+place all files from this folder (except this one) in BASEDIR/debian
 
+for binary package:
 dpkg-buildpackage
+
+for source package suitable for ppa:
+debuild -S -sa
+
+to upload to ppa:
+dput -f ppa:jakob-gruber/picmi ../picmi_1.2.0-2_source.changes

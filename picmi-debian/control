@@ -1,13 +1,13 @@
 Source: picmi
 Section: x11
 Priority: optional
-Maintainer: jakob gruber <jakob.gruber@gmail.com>
-Build-Depends: quilt, debhelper (>= 7), libsdl1.2-dev, libsdl-gfx1.2-dev, libsdl-image1.2-dev, libsdl-ttf2.0-dev, libqt4-dev, libboost-dev
-Standards-Version: 3.8.1
+Maintainer: Jakob Gruber <jakob.gruber@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), libsdl1.2-dev, libsdl-gfx1.2-dev, libsdl-image1.2-dev, libsdl-ttf2.0-dev, libqt4-dev, libboost-dev, libboost-thread-dev
+Standards-Version: 3.8.4
 Homepage: http://github.com/schuay/picmi
 
 Package: picmi
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libsdl-gfx1.2-4, libsdl-image1.2, libsdl-ttf2.0-0, libqtgui4
+Depends: ${shlibs:Depends}, ${misc:Depends}, libsdl-gfx1.2-4, libsdl-image1.2, libsdl-ttf2.0-0, libqtgui4, libboost-thread1.40.0
 Description: A picross and minesweeper clone.
- A picross and minesweeper clone using C++, SDL and QT.
+ A game collection containing containing picross and minesweeper clones, written in C++.
