@@ -1,5 +1,5 @@
-picmi (1.1.9-1) unstable; urgency=low
+picmi (1.2.0-3) lucid; urgency=low
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Package cleanup.
 
- -- Jakob Gruber <jakob@unknown>  Sun, 23 May 2010 17:39:24 +0200
+ -- Jakob Gruber <jakob.gruber@gmail.com>  Sun, 23 May 2010 17:39:24 +0200
