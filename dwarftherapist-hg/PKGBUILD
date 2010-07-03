@@ -1,7 +1,7 @@
 # Contributor: Jakob Gruber <jakob.gruber@gmail.com>
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 pkgname=dwarftherapist-hg
-pkgver=0.5.5
+pkgver=0.5.6
 pkgrel=1
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
@@ -11,10 +11,8 @@ depends=('qt')
 makedepends=('mercurial')
 conflicts=('dwarftherapist-svn')
 replaces=('dwarftherapist-svn')
-source=('fix_file_path.diff'
-        'build_fix.patch')
-md5sums=('ec1f0142930d96eb0bcaed7d5fc99030'
-         '6878768a7a1eb518e87f1d22437c2319')
+source=('fix_file_path.diff')
+md5sums=('ec1f0142930d96eb0bcaed7d5fc99030')
 
 _hgtrunk=https://dwarftherapist.googlecode.com/hg
 _hgmod=dwarftherapist
@@ -38,7 +36,6 @@ build() {
 
   # Change stupid hardcoded path to slightly less stupid hardcoded path.
   patch -Np1 < "$srcdir/fix_file_path.diff"
-  patch -Np1 < "$srcdir/build_fix.patch"
 
 
   # Build
