@@ -1,20 +1,21 @@
 #Contributor Antti Oja <antti.bofh(AT)gmail.com>
 #Contributor Jakob Gruber <jakob.gruber(AT)kabelnet.at>
 pkgname=rt2870
-pkgver=2.4.0.0
+pkgver=2.4.0.1
 pkgrel=1
 pkgdesc="Drivers for rt2870 chipset wireless cards"
 arch=('i686' 'x86_64')
 url="http://eng.ralinktech.com.tw/support.php?s=2"
 depends=('kernel26' 'kernel26-headers')
-license="GPL"
-install=install.rt2870
-source=('http://dl.dropbox.com/u/169548/2010_06_25_RT2870_Linux_STA_v2.4.0.0.tar.bz2')
-md5sums=('9ab5d68566eb6defd5a794bb98bcf425')
+license='GPL'
+install='install.rt2870'
+md5sums=('9afbb7c60bcf17a5e8bfad89a4b14e0f')
+fileprefix='2010_0709_RT2870_Linux_STA_v'
+source=("http://dl.dropbox.com/u/169548/${fileprefix}${pkgver}.tar.bz2")
 
 build() {
 
-  cd $srcdir/2010_06_25_RT2870_Linux_STA_v2.4.0.0
+  cd $srcdir/${fileprefix}${pkgver}
 
   #configure for being controlled by NetworkManager or wpa_supplicant wext functions
 
