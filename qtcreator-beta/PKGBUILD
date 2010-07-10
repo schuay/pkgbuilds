@@ -1,0 +1,54 @@
+# Contributor: Lukas Jirkovsky <l.jirkovsky@gmail.com>
+# Contributor: Dan Vratil <progdan@progdansoft.com>
+# Contributor: thotypous <matiasΘarchlinux-br·org>
+# Contributor: delor <bartekpiech gmail com>
+# Mantainer: Imanol Celaya <ornitorrincos@archlinux-es.org>
+
+pkgname=qtcreator-beta1
+pkgver=2.0.0
+pkgrel=1
+_qtver=4.7.0-beta1
+pkgdesc="Lightweight, cross-platform integrated development environment"
+arch=('i686' 'x86_64')
+url="http://trolltech.com/developer/qt-creator"
+license=('LGPL')
+makedepends=()
+depends=('qt-beta1')
+optdepends=('qt-doc: for the integrated Qt documentation'
+            'gdb: for the debugger')
+options=(docs)
+source=("http://download.qtsoftware.com/qtcreator/qt-creator-${pkgver}-beta1-src.tar.gz"
+	"ftp://ftp.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${_qtver}.tar.gz")
+md5sums=('0748acfb7108bf8b02098a7c4ca42872'
+	'128dae41b23bb427b735548c7864703a')
+
+build() {
+  cd "${srcdir}/qt-everywhere-opensource-src-${_qtver}"
+  touch ".qmake.cache"
+  cd "${srcdir}/qt-creator-${pkgver}-beta1-src"
+
+  export QTDIR="${srcdir}/qt-everywhere-opensource-src-${_qtver}"
+#  export QTDIR="/opt/qt-beta1"
+  
+  if [ -d ${srcdir}/build ]; then
+  rm -rf ${srcdir}/build
+  fi
+  
+  mkdir ${srcdir}/build
+  cd ${srcdir}/build
+  mkdir -p share/doc/qtcreator
+  touch share/doc/qtcreator/qtcreator.qch
+
+
+  cp -f ${srcdir}/../debuggerrunner.cpp ${srcdir}/qt-creator-${pkgver}-beta1-src/src/plugins/debugger/
+  /opt/qt-beta1/bin/qmake ${srcdir}/qt-creator-${pkgver}-beta1-src/qtcreator.pro -o Makefile || return 1
+  make || return 1 
+  
+  export LD_LIBRARY_PATH=/opt/qt-beta1/lib:$LD_LIBRARY_PATH
+  make INSTALL_ROOT="${pkgdir}/opt/" install || return 1
+  install -Dm755 ${srcdir}/../qtcreator ${pkgdir}/opt/bin/qtcreator
+  install -Dm644 ${srcdir}/../qtcreator.desktop ${pkgdir}/opt/share/applications/qtcreator.desktop
+  install -Dm644 ${srcdir}/qt-creator-${pkgver}-beta1-src/LGPL_EXCEPTION.TXT ${pkgdir}/opt/share/licenses/qtcreator/LGPL_EXCEPTION.TXT
+}
+
+
