@@ -1,10 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
-Exec=/opt/bin/qtcreator
+Exec=/bin/qtcreator2
 Name=Qt-Creator
 GenericName=C++ IDE
 X-KDE-StartupNotify=true
-Icon=/usr/share/pixmaps/qtcreator_logo_48.png
+Icon=/opt/qtcreator2/share/pixmaps/qtcreator_logo_48.png
 Terminal=false
 Type=Application
 Categories=Qt;Development

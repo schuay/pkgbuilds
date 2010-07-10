@@ -1,8 +1,6 @@
-# $Id: PKGBUILD 78432 2010-04-23 19:23:07Z andyrtr $
-# Maintainer: Pierre Schmitz <pierre@archlinux.de>
-
 pkgname=qt-beta
-pkgver=4.7.0
+pkgver=4.7.0_beta2
+_pkgver=${pkgver//_/-}
 pkgrel=1
 pkgdesc='A cross-platform application and UI framework'
 arch=('i686' 'x86_64')
@@ -14,7 +12,7 @@ optdepends=('postgresql-libs' 'libmysqlclient' 'unixodbc')
 makedepends=('mesa' 'inputproto' 'postgresql-libs' 'mysql' 'unixodbc>=2.3.0' 'cups' 'libxfixes' 'gtk2')
 install=qt.install
 options=('!libtool')
-_pkgfqn="qt-everywhere-opensource-src-${pkgver}-beta2"
+_pkgfqn="qt-everywhere-opensource-src-${_pkgver}"
 source=("ftp://ftp.qt.nokia.com/qt/source/${_pkgfqn}.tar.gz"
         'assistant.desktop' 'designer.desktop' 'linguist.desktop' 'qtconfig.desktop'
         )
@@ -37,14 +35,14 @@ build() {
 	sed -i "/^QMAKE_LFLAGS\s/s|+=|+= $LDFLAGS|g" mkspecs/common/g++.conf
 
 	./configure -confirm-license -opensource \
-		-prefix /opt/qt-beta2 \
-		-sysconfdir //opt/qt-beta2/etc \
-		-plugindir /opt/qt-beta2/lib/qt/plugins \
-		-translationdir /opt/qt-beta2/share/qt/translations \
-		-datadir /opt/qt-beta2/share/qt \
-		-docdir /opt/qt-beta2/share/doc/qt \
-		-examplesdir /opt/qt-beta2/share/doc/qt/examples \
-		-demosdir /opt/qt-beta2/share/doc/qt/demos \
+		-prefix /opt/qt-beta \
+		-sysconfdir /opt/qt-beta/etc \
+		-plugindir /opt/qt-beta/lib/qt/plugins \
+		-translationdir /opt/qt-beta/share/qt/translations \
+		-datadir /opt/qt-beta/share/qt \
+		-docdir /opt/qt-beta/share/doc/qt \
+		-examplesdir /opt/qt-beta/share/doc/qt/examples \
+		-demosdir /opt/qt-beta/share/doc/qt/demos \
 		-largefile \
 		-plugin-sql-{psql,mysql,sqlite,odbc} \
 		-system-sqlite \
@@ -81,22 +79,22 @@ package() {
 	# install missing icons and desktop files
 	for icon in tools/linguist/linguist/images/icons/linguist-*-32.png ; do
 		size=$(echo $(basename ${icon}) | cut -d- -f2)
-		install -p -D -m644 ${icon} ${pkgdir}/opt/qt-beta2/share/icons/hicolor/${size}x${size}/apps/linguist.png
+		install -p -D -m644 ${icon} ${pkgdir}/opt/qt-beta/share/icons/hicolor/${size}x${size}/apps/linguist.png
 	done
-	install -p -D -m644 src/gui/dialogs/images/qtlogo-64.png ${pkgdir}/opt/qt-beta2/share/icons/hicolor/64x64/apps/qtlogo.png
-	install -p -D -m644 tools/assistant/tools/assistant/images/assistant.png ${pkgdir}/opt/qt-beta2/share/icons/hicolor/32x32/apps/assistant.png
-	install -p -D -m644 tools/designer/src/designer/images/designer.png ${pkgdir}/opt/qt-beta2/share/icons/hicolor/128x128/apps/designer.png
-	install -d ${pkgdir}/opt/qt-beta2/share/applications
-	install -m644 ${srcdir}/{linguist,designer,assistant,qtconfig}.desktop ${pkgdir}/opt/qt-beta2/share/applications/
+	install -p -D -m644 src/gui/dialogs/images/qtlogo-64.png ${pkgdir}/opt/qt-beta/share/icons/hicolor/64x64/apps/qtlogo.png
+	install -p -D -m644 tools/assistant/tools/assistant/images/assistant.png ${pkgdir}/opt/qt-beta/share/icons/hicolor/32x32/apps/assistant.png
+	install -p -D -m644 tools/designer/src/designer/images/designer.png ${pkgdir}/opt/qt-beta/share/icons/hicolor/128x128/apps/designer.png
+	install -d ${pkgdir}/opt/qt-beta/share/applications
+	install -m644 ${srcdir}/{linguist,designer,assistant,qtconfig}.desktop ${pkgdir}/opt/qt-beta/share/applications/
 
 	# install license addition
-	install -D -m644 LGPL_EXCEPTION.txt ${pkgdir}/opt/qt-beta2/share/licenses/qt/LGPL_EXCEPTION.txt
+	install -D -m644 LGPL_EXCEPTION.txt ${pkgdir}/opt/qt-beta/share/licenses/qt/LGPL_EXCEPTION.txt
 
 	# Fix wrong path in pkgconfig files
-	find ${pkgdir}/opt/qt-beta2/lib/pkgconfig -type f -name '*.pc' \
+	find ${pkgdir}/opt/qt-beta/lib/pkgconfig -type f -name '*.pc' \
 		-exec perl -pi -e "s, -L${srcdir}/?\S+,,g" {} \;
 	# Fix wrong path in prl files
-	find ${pkgdir}/opt/qt-beta2/lib -type f -name '*.prl' \
+	find ${pkgdir}/opt/qt-beta/lib -type f -name '*.prl' \
 		-exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d;s/\(QMAKE_PRL_LIBS =\).*/\1/' {} \;
 }
 

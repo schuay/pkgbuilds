@@ -1,0 +1,49 @@
+pkgname=qtcreator2
+pkgver=2.0.0
+pkgrel=1
+_qtver=4.7.0-beta2
+pkgdesc="Lightweight, cross-platform integrated development environment"
+arch=('i686' 'x86_64')
+url="http://trolltech.com/developer/qt-creator"
+license=('LGPL')
+depends=('qt-beta')
+optdepends=('qt-doc: for the integrated Qt documentation'
+            'gdb: for the debugger')
+options=(docs)
+source=("http://get.qt.nokia.com/qtcreator/qt-creator-${pkgver}-src.zip"
+	"http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-${_qtver}.tar.gz"
+	"qtcreator2"
+	"qtcreator2.desktop")
+md5sums=('3459ed5313115fddffbe2bba5d332799'
+	 '1449443c2d33ab9fefbd37b7104d0cdf'
+	 '6f6f248834b1b1c9a92756446a56b9a5'
+	 '9c1471e24aff18df479ce6c19164385b')
+
+build() {
+  cd "${srcdir}/qt-everywhere-opensource-src-${_qtver}"
+  touch ".qmake.cache"
+  cd "${srcdir}/qt-creator-${pkgver}-src"
+
+  export QTDIR="${srcdir}/qt-everywhere-opensource-src-${_qtver}"
+  
+  if [ -d ${srcdir}/build ]; then
+  rm -rf ${srcdir}/build
+  fi
+  
+  mkdir ${srcdir}/build
+  cd ${srcdir}/build
+  mkdir -p share/doc/qtcreator
+  touch share/doc/qtcreator/qtcreator.qch
+
+
+  /opt/qt-beta/bin/qmake ${srcdir}/qt-creator-${pkgver}-src/qtcreator.pro -o Makefile
+  make 
+  
+  export LD_LIBRARY_PATH=/opt/qt-beta2/lib:$LD_LIBRARY_PATH
+  make INSTALL_ROOT="${pkgdir}/opt/qtcreator2" install
+  install -Dm755 ${srcdir}/qtcreator2 ${pkgdir}/bin/qtcreator2
+  install -Dm644 ${srcdir}/qtcreator2.desktop ${pkgdir}/opt/qtcreator2/share/applications/qtcreator.desktop
+  install -Dm644 ${srcdir}/qt-creator-${pkgver}-src/LGPL_EXCEPTION.TXT ${pkgdir}/opt/qtcreator2/share/licenses/qtcreator/LGPL_EXCEPTION.TXT
+}
+
+
