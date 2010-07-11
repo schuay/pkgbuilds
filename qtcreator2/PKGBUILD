@@ -41,7 +41,7 @@ build() {
   
   export LD_LIBRARY_PATH=/opt/qt-beta/lib:$LD_LIBRARY_PATH
   make INSTALL_ROOT="${pkgdir}/opt/qtcreator2" install
-  install -Dm755 ${srcdir}/qtcreator2 ${pkgdir}/bin/qtcreator2
+  install -Dm755 ${srcdir}/qtcreator2 ${pkgdir}/usr/bin/qtcreator2
   install -Dm644 ${srcdir}/qtcreator2.desktop ${pkgdir}/opt/qtcreator2/share/applications/qtcreator.desktop
   install -Dm644 ${srcdir}/qt-creator-${pkgver}-src/LGPL_EXCEPTION.TXT ${pkgdir}/opt/qtcreator2/share/licenses/qtcreator/LGPL_EXCEPTION.TXT
 }
