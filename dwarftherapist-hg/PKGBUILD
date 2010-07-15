@@ -1,7 +1,7 @@
 # Contributor: Jakob Gruber <jakob.gruber@gmail.com>
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 pkgname=dwarftherapist-hg
-pkgver=0.5.6
+pkgver=0.5.7
 pkgrel=1
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
