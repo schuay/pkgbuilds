@@ -1,15 +1,15 @@
 # Maintainer: Jakob Gruber (jakob gruber kabelnet at)
 
 pkgname=picmi
-pkgver=1.2.1
+pkgver=1.3.0pre
 pkgdesc="A picross and minesweeper clone."
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://github.com/schuay/$pkgname/"
 license=('GPL')
 source=("http://github.com/downloads/schuay/$pkgname/$pkgname-$pkgver.tar.bz2")
-md5sums=('78402721b4dbfda0bc8449bf2285252d')
-depends=('sdl_gfx' 'sdl_image' 'sdl_ttf' 'qt' 'boost-libs')
+md5sums=('80beb71c111321badeaeb5ffc125481b')
+depends=('sfml' 'qt' 'boost-libs')
 makedepends=('boost')
 
 build() {
