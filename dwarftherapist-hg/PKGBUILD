@@ -2,7 +2,7 @@
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 pkgname=dwarftherapist-hg
 pkgver=0.5.7
-pkgrel=2
+pkgrel=3
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
 url="http://code.google.com/p/dwarftherapist/"
@@ -11,8 +11,8 @@ depends=('qt')
 makedepends=('mercurial')
 conflicts=('dwarftherapist-svn')
 replaces=('dwarftherapist-svn')
-source=('fix_file_path.diff' 'v0.31.10.ini')
-md5sums=('ec1f0142930d96eb0bcaed7d5fc99030' '15843528a396bb89f09f71759947bb9d')
+source=('fix_file_path.diff' 'v0.31.10.ini' 'v0.31.12.ini')
+md5sums=('ec1f0142930d96eb0bcaed7d5fc99030' '15843528a396bb89f09f71759947bb9d' '1d26c84d42880fcee9e77be6b80dc473')
 
 _hgtrunk=https://dwarftherapist.googlecode.com/hg
 _hgmod=dwarftherapist
@@ -50,6 +50,7 @@ build() {
   install -Dm644 etc/memory_layouts/linux/*.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
 
   install -Dm644 $srcdir/v0.31.10.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
+  install -Dm644 $srcdir/v0.31.12.ini $pkgdir/usr/share/dwarftherapist/memory_layouts/linux/
 }
 
 # vim:set ts=2 sw=2 et:
