@@ -20,3 +20,14 @@
  
      TRACE << "Searching for MemoryLayout ini files in the following directories";
      foreach(QString path, search_paths) {
+--- dwarftherapist/src/dwarftherapist.cpp	2010-07-31 22:04:58.291687394 +0200
++++ dwarftherapist-build/src/dwarftherapist.cpp	2010-07-31 22:06:35.031276564 +0200
+@@ -91,7 +91,7 @@
+ 
+     //setup logging
+     m_log_mgr = new LogManager(this);
+-    TruncatingFileLogger *log = m_log_mgr->add_logger("log/run.log");
++    TruncatingFileLogger *log = m_log_mgr->add_logger(QDir::tempPath() + "/dwarftherapist.log");
+     if (log) {
+         LogAppender *app = m_log_mgr->add_appender("core", log, LL_TRACE);
+         if (app) {
