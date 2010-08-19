@@ -1,0 +1,31 @@
+pkgname=stone-soup
+pkgver=0.6.1
+pkgrel=1
+pkgdesc="Community maintained variant of Linley's Dungeon Crawl"
+arch=('i686' 'x86_64' 'ppc')
+url="http://crawl.develz.org/"
+depends=('lua' 'ncurses' 'python') 
+makedepends=('gcc' 'bison' 'flex')
+conflicts=('crawl' 'stone-soup-tile')
+license=('custom')
+install=stone-soup.install
+source=("http://downloads.sourceforge.net/project/crawl-ref/Stone Soup/$pkgver/stone_soup-$pkgver-nodeps.tar.bz2")
+md5sums=('864e00b6a3bd74c9690a3aeb8572dff9')
+
+build() {
+    cd $srcdir/stone_soup-$pkgver/source
+    sed -i 's|bin_prefix    := bin|bin_prefix    := usr/bin|' makefile || return 1
+    sed -i 's/INSTALL_UGRP := games:games/INSTALL_UGRP := root:games/' makefile || return 1
+
+    make DESTDIR=$pkgdir \
+        SAVEDIR="/var/games/stone-soup/" \
+        DATADIR="/usr/share/stone-soup/data" \
+        USE_UNICODE=y \
+        install || return 1
+   chown -R root:root "$pkgdir/usr/share/stone-soup"
+   chmod -R 775 "$pkgdir/var/games"
+   chown -R root:games "$pkgdir/var/games"
+
+    install -D -m644 $srcdir/stone_soup-$pkgver/licence.txt "$pkgdir/usr/share/licenses/stone-soup/license.txt" || return 1
+}
+md5sums=('864e00b6a3bd74c9690a3aeb8572dff9')
