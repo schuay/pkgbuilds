@@ -12,6 +12,8 @@ source=("http://downloads.sourceforge.net/project/crawl-ref/Stone Soup/$pkgver/s
 md5sums=('e5fa03fc9206ede190f288bf0b24500b')
 
 build() {
+    mv $srcdir/stone_soup-$pkgver{-1-g7ce9b19,}
+
     cd $srcdir/stone_soup-$pkgver/source
     sed -i 's|bin_prefix    := bin|bin_prefix    := usr/bin|' makefile
     sed -i 's/INSTALL_UGRP := games:games/INSTALL_UGRP := root:games/' makefile
