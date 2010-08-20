@@ -1,32 +1,36 @@
+# Maintainer: Jakob Gruber <jakob.gruber@gmail.com>
+
 pkgname=stone-soup
 pkgver=0.7.1
 pkgrel=1
 pkgdesc="Community maintained variant of Linley's Dungeon Crawl"
 arch=('i686' 'x86_64' 'ppc')
-url="http://crawl.develz.org/"
+url='http://crawl.develz.org/'
 depends=('lua' 'ncurses' 'python') 
 makedepends=('gcc' 'bison' 'flex')
-conflicts=('crawl' 'stone-soup-tile')
+conflicts=('crawl' 'stone-soup-tile' 'stone-soup-git')
 license=('custom')
-source=("http://downloads.sourceforge.net/project/crawl-ref/Stone Soup/$pkgver/stone_soup-$pkgver-nodeps.tar.bz2")
+backup=('usr/share/stone-soup/data/settings/tiles_options.txt'
+        'usr/share/stone-soup/data/settings/init.txt')
+source=("http://downloads.sourceforge.net/project/crawl-ref/Stone Soup/${pkgver}/stone_soup-${pkgver}-nodeps.tar.bz2")
 md5sums=('e5fa03fc9206ede190f288bf0b24500b')
+pkgsuffix='-1-g7ce9b19'
 
 build() {
-    mv $srcdir/stone_soup-$pkgver{-1-g7ce9b19,}
+    cd ${srcdir}/stone_soup-${pkgver}${pkgsuffix}/source
 
-    cd $srcdir/stone_soup-$pkgver/source
     sed -i 's|bin_prefix    := bin|bin_prefix    := usr/bin|' makefile
     sed -i 's/INSTALL_UGRP := games:games/INSTALL_UGRP := root:games/' makefile
 
-    make DESTDIR=$pkgdir \
-        SAVEDIR="/var/games/stone-soup/" \
-        DATADIR="/usr/share/stone-soup/data" \
-        USE_UNICODE=y \
-        install
+    make DESTDIR=${pkgdir} \
+         SAVEDIR="/var/games/${pkgname}/" \
+         DATADIR="/usr/share/${pkgname}/data" \
+         USE_UNICODE=y \
+         install
 
-   chown -R root:root "$pkgdir/usr/share/stone-soup"
-   chmod -R 775 "$pkgdir/var/games"
-   chown -R root:games "$pkgdir/var/games"
+   chown -R root:root ${pkgdir}/usr/share/${pkgname}
+   chmod -R 775 ${pkgdir}/var/games
+   chown -R root:games ${pkgdir}/var/games
 
-    install -D -m644 $srcdir/stone_soup-$pkgver/licence.txt "$pkgdir/usr/share/licenses/stone-soup/license.txt"
+    install -D -m644 ../licence.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
