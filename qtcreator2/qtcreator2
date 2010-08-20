@@ -1,7 +1,0 @@
-#!/bin/sh
-
-bindir="/opt/qtcreator2/bin"
-
-libdir="${bindir}/../lib"
-
-LD_LIBRARY_PATH="/opt/qt-beta/lib:${libdir}/qtcreator:${LD_LIBRARY_PATH}" exec "${bindir}/qtcreator.bin" ${1+"$@"}
