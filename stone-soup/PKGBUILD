@@ -21,13 +21,11 @@ build() {
 
     cd "${srcdir}/stone_soup-${pkgver}${pkgsuffix}/source"
 
-    # adjust makefile to use /usr/bin, owner root:root, disable setgid on executable, and
-    # make save dir (stored in your home directory) permissions 700
+    # adjust makefile to use /usr/bin, owner root:root, disable setgid on executable
 
     sed -i 's|bin_prefix    := bin|bin_prefix    := usr/bin|' makefile
     sed -i 's/INSTALL_UGRP := games:games/INSTALL_UGRP := root:root/' makefile
     sed -i 's|MCHMOD := 2755|MCHMOD := 755|' makefile
-    sed -i 's|MCHMOD_SAVEDIR := 775|MCHMOD_SAVEDIR := 700|' makefile
 
     # first build and install tiles version
 
