@@ -3,34 +3,59 @@
 pkgname=stone-soup
 pkgver=0.7.1
 pkgrel=1
-pkgdesc="Community maintained variant of Linley's Dungeon Crawl"
+pkgdesc="An open-source, single-player, role-playing roguelike game of exploration and treasure-hunting"
 arch=('i686' 'x86_64' 'ppc')
 url='http://crawl.develz.org/'
-depends=('lua' 'ncurses' 'python') 
-makedepends=('gcc' 'bison' 'flex')
+depends=('lua')
+makedepends=('bison' 'flex')
 conflicts=('crawl' 'stone-soup-tile' 'stone-soup-git')
 license=('custom')
 backup=('usr/share/stone-soup/data/settings/tiles_options.txt'
         'usr/share/stone-soup/data/settings/init.txt')
 source=("http://downloads.sourceforge.net/project/crawl-ref/Stone Soup/${pkgver}/stone_soup-${pkgver}-nodeps.tar.bz2")
 md5sums=('e5fa03fc9206ede190f288bf0b24500b')
+
 pkgsuffix='-1-g7ce9b19'
 
 build() {
-    cd ${srcdir}/stone_soup-${pkgver}${pkgsuffix}/source
+
+    cd "${srcdir}/stone_soup-${pkgver}${pkgsuffix}/source"
+
+    # adjust makefile to use /usr/bin and owner root:games
 
     sed -i 's|bin_prefix    := bin|bin_prefix    := usr/bin|' makefile
     sed -i 's/INSTALL_UGRP := games:games/INSTALL_UGRP := root:games/' makefile
 
-    make DESTDIR=${pkgdir} \
+    # first build and install tiles version
+
+    make DESTDIR="${pkgdir}" \
+         SAVEDIR="/var/games/${pkgname}/" \
+         DATADIR="/usr/share/${pkgname}/data" \
+         USE_UNICODE=y \
+         TILES=y \
+         install
+
+    # rename tiles executable to avoid clashing with console crawl
+
+    mv "${pkgdir}/usr/bin/crawl" "${pkgdir}/usr/bin/crawl-tiles"
+
+    # then build and install console version
+
+    make DESTDIR="${pkgdir}" \
          SAVEDIR="/var/games/${pkgname}/" \
          DATADIR="/usr/share/${pkgname}/data" \
          USE_UNICODE=y \
          install
 
-   chown -R root:root ${pkgdir}/usr/share/${pkgname}
-   chmod -R 775 ${pkgdir}/var/games
-   chown -R root:games ${pkgdir}/var/games
+    # custom permissions for saves directory
 
-    install -D -m644 ../licence.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
+    chown -R root:root "${pkgdir}/usr/share/${pkgname}"
+    chmod -R 775 "${pkgdir}/var/games"
+    chown -R root:games "${pkgdir}/var/games"
+
+    # install crawl license
+
+    install -D -m644 ../licence.txt "${pkgdir}/usr/share/licenses/${pkgname}/license.txt"
 }
+
+# vim: ts=4:sw=4:expandtab
