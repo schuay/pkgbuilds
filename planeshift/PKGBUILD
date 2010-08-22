@@ -45,33 +45,33 @@ build() {
   ./PlaneShift-v${pkgver}-${_arch}.bin \
   --mode unattended \
   --syswide yes \
-  --prefix $pkgdir/opt
+  --prefix ${pkgdir}/opt
 
   # Set correct permissions for files and folders
-  find $pkgdir/opt/PlaneShift -type f -exec chmod 660 {} +
-  find $pkgdir/opt/PlaneShift -type d -exec chmod 770 {} +
+  find ${pkgdir}/opt/PlaneShift -type f -exec chmod 660 {} +
+  find ${pkgdir}/opt/PlaneShift -type d -exec chmod 770 {} +
 
-  cd $pkgdir/opt/PlaneShift
+  cd ${pkgdir}/opt/PlaneShift
 
   # Set correct permissions for executables
   chmod 770 psclient.bin pslaunch.bin psclient pslaunch
 
   # Install scripts to proper directory
-  install -D -m755 psclient ${pkgdir}/usr/bin/$pkgname
-  install -D -m755 pslaunch ${pkgdir}/usr/bin/$pkgname-setup
+  install -D -m755 psclient ${pkgdir}/usr/bin/${pkgname}
+  install -D -m755 pslaunch ${pkgdir}/usr/bin/${pkgname}-setup
 
   # Remove unnecessary files
   rm uninstall unscript.sh planeshift
 
-  cd $pkgdir/usr/bin/
+  cd ${pkgdir}/usr/bin/
 
   #fix script
-  patch -Np0 < $srcdir/scriptfix.patch || return 1
+  patch -Np0 < ${srcdir}/scriptfix.patch
 
   # Install shortcuts
-  mkdir -p $pkgdir/usr/share/applications
-  install -D -m644 $srcdir/*.desktop $pkgdir/usr/share/applications/
+  mkdir -p ${pkgdir}/usr/share/applications
+  install -D -m644 ${srcdir}/*.desktop ${pkgdir}/usr/share/applications/
 
   # Install the PlaneShift Content License
-  install -D -m644 $srcdir/license.txt $pkgdir/usr/share/licenses/$pkgname/LICENSE
+  install -D -m644 ${srcdir}/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }

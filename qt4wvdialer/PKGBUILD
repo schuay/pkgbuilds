@@ -5,21 +5,21 @@ pkgver=0.4.4
 pkgdesc="A simple graphical frontend to wvdial, ported to Qt4."
 pkgrel=1
 arch=('i686' 'x86_64')
-url="http://github.com/schuay/$pkgname"
+url="http://github.com/schuay/${pkgname}"
 license=('GPL')
 depends=('qt' 'wvdial')
 conflicts=('qt4wvdialer-git')
 replaces=('qt4wvdialer-git')
-source=("http://github.com/downloads/schuay/${pkgname}/${pkgname}-${pkgver}.tar.bz2" "$pkgname.desktop")
+source=("http://github.com/downloads/schuay/${pkgname}/${pkgname}-${pkgver}.tar.bz2" "${pkgname}.desktop")
 md5sums=('2580a9dfdb10a083e3160f890d392b74' 'e6530cad1fb85453a85c8c9e53d16a91')
 
 build() {
-  cd $srcdir/$pkgname
+  cd ${srcdir}/${pkgname}
 
   QTDIR=/usr/share/qt ./configure --prefix=/usr
-  make || return 1
+  make
 
-  install -D -m755 bin/qtwvdialer $pkgdir/usr/bin/qtwvdialer
-  install -D -m644 $startdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+  install -D -m755 bin/qtwvdialer ${pkgdir}/usr/bin/qtwvdialer
+  install -D -m644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
 }
 

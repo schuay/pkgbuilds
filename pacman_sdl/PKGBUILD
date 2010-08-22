@@ -14,13 +14,12 @@ makedepends=('boost')
 
 build() {
 
-  # github names downloads after tag commit
-  cd $srcdir/src/
+  cd ${srcdir}/src/
 
   #build
   autoconf
-  ./configure || return 1
-  make || return 1
-  make DESTDIR=$pkgdir install || return 1
+  ./configure
+  make
+  make DESTDIR=${pkgdir} install
 
 }

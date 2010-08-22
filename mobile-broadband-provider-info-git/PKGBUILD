@@ -13,23 +13,25 @@ makedepends=('git')
 
 build() {
   #clean source dir
-  rm -rf "$srcdir"/"$_pkgname"
+  rm -rf "${srcdir}/$_pkgname"
 
   #git checkout
-  cd $srcdir
-  git clone git://git.gnome.org/mobile-broadband-provider-info || return 1 
-  cd $srcdir/$_pkgname
+  cd ${srcdir}
+  git clone git://git.gnome.org/mobile-broadband-provider-info 
+  cd ${srcdir}/$_pkgname
 
   #install
-  mkdir -p $pkgdir/usr/share/{,doc/}$_pkgname/
+  mkdir -p ${pkgdir}/usr/share/{,doc/}$_pkgname/
   cp    COPYING \
-  	README.svn \
-  	ChangeLog \
-  	NEWS \
-  	authors.svn2cl \
-  	MAINTAINERS \
-  	README "$pkgdir/usr/share/doc/$_pkgname/"
+        README.svn \
+        ChangeLog \
+        NEWS \
+        authors.svn2cl \
+        MAINTAINERS \
+        README \
+        "${pkgdir}/usr/share/doc/$_pkgname/"
   cp    serviceproviders.2.dtd \
-  	serviceproviders.xml "$pkgdir/usr/share/$_pkgname/"
+        serviceproviders.xml \
+        "${pkgdir}/usr/share/$_pkgname/"
 }
 

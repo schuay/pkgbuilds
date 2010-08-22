@@ -14,15 +14,14 @@ makedepends=('git')
 build() {
 
   #clean source directory
-  rm -rf $srcdir/*
+  rm -rf "${srcdir}/*"
 
   #git checkout
-  cd $srcdir
+  cd ${srcdir}
   git clone git://github.com/schuay/mkwvconf.git
-  cd $srcdir/$_pkgname
+  cd ${srcdir}/$_pkgname
 
   #install
-  mkdir -p "$pkgdir/usr/bin/"
-  cp mkwvconf.py "$pkgdir/usr/bin/mkwvconf"
+  install -Dm755 mkwvconf.py "${pkgdir}/usr/bin/mkwvconf"
 }
 

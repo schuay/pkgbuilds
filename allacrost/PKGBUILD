@@ -6,30 +6,32 @@ pkgver=20100228
 pkgrel=1
 pkgdesc='A single player 2D role-playing game inspired by classic console RPGs.'
 arch=('i686' 'x86_64')
-url="http://www.allacrost.org/"
+url='http://www.allacrost.org/'
 license=('GPL2')
 depends=('libgl' 'libpng' 'libjpeg' 'qt' 'openal' 'libvorbis' 'sdl' 'sdl_net' 'sdl_ttf' 'lua' 'luabind')
 makedepends=('boost')
 options=('!emptydirs')
 source=("http://downloads.sourceforge.net/project/${pkgname}/unstable%20releases/${pkgname}_unstable_source_${pkgver}.tar.gz"
-	"config.patch")
+        "config.patch")
 md5sums=('214cc179f5b384c388efbf38c8ed6dd0'
-	 'a504fee94faa127777e5d8c9b8a1687b')
+         'a504fee94faa127777e5d8c9b8a1687b')
 
 build() {
-  cd $srcdir/$pkgname-02282010
+  cd "${srcdir}/${pkgname}-02282010"
 
-  #remove lua checks from config file because they fail for some reason
-  patch -p2 < ../../config.patch || return 1
+  # remove lua checks from config file because they fail for some reason
 
-  ./configure --prefix=/usr || return 1
+  patch -p2 < ../../config.patch
 
-  make CXXFLAGS="${CXXFLAGS}"  || return 1
-  make DESTDIR=$pkgdir install || return 1
+  ./configure --prefix=/usr
 
-  #create dummy executable in /usr/bin
-  mkdir -p $pkgdir/usr/bin
-  echo "#!/bin/bash" >> $pkgdir/usr/bin/allacrost
-  echo "/usr/games/allacrost" >> $pkgdir/usr/bin/allacrost
-  chmod 755 $pkgdir/usr/bin/allacrost
+  make CXXFLAGS="${CXXFLAGS}"
+  make DESTDIR="${pkgdir}" install
+
+  # create dummy executable in /usr/bin
+
+  mkdir -p "${pkgdir}/usr/bin"
+  echo "#!/bin/bash" >> "${pkgdir}/usr/bin/allacrost"
+  echo "/usr/games/allacrost" >> "${pkgdir}/usr/bin/allacrost"
+  chmod 755 "${pkgdir}/usr/bin/allacrost"
 }

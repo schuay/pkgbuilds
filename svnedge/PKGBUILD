@@ -23,20 +23,21 @@ source=("http://dl.dropbox.com/u/169548/CollabNetSubversionEdge-${pkgver}_linux-
 
 
 build() {
-  cd $srcdir
+  cd ${srcdir}
 
   # correctly determine our architecture
-  patch -Np1 < $srcdir/uname.patch
+  patch -Np1 < ${srcdir}/uname.patch
 
   # install into /opt
-  mkdir -p $pkgdir/opt/$pkgname/
-  cp -r $srcdir/csvn/* \
-        $srcdir/csvn/.org.opensolaris,pkg \
-	$pkgdir/opt/$pkgname/
+  mkdir -p ${pkgdir}/opt/${pkgname}/
+  cp -r ${srcdir}/csvn/* \
+        ${srcdir}/csvn/.org.opensolaris,pkg \
+	${pkgdir}/opt/${pkgname}/
 
   # copy our own python bindings since the shipped bindings do not work with our python
-  cd $pkgdir/opt/$pkgname/lib/svn-python
-  rm -r $pkgdir/opt/$pkgname/lib/svn-python/*
+  cd ${pkgdir}/opt/${pkgname}/lib/svn-python
+  rm -r ${pkgdir}/opt/${pkgname}/lib/svn-python/*
   ln -s /usr/lib/python2.6/site-packages/svn/
   ln -s /usr/lib/python2.6/site-packages/libsvn/
+
 }

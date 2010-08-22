@@ -15,7 +15,7 @@ source=("http://dl.dropbox.com/u/169548/${fileprefix}${pkgver}.tar.bz2" "2.6.35.
 
 build() {
 
-  cd $srcdir/${fileprefix}${pkgver}
+  cd ${srcdir}/${fileprefix}${pkgver}
 
   #configure for being controlled by NetworkManager or wpa_supplicant wext functions
 
@@ -24,11 +24,11 @@ build() {
 
   #allow compilation on 2.6.35
 
-  patch -Np2 < $srcdir/2.6.35.patch
+  patch -Np2 < ${srcdir}/2.6.35.patch
   
   make
 
-  install -D -m 755 os/linux/rt2870sta.ko $pkgdir/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rt2870sta.ko
-  install -D -m 644 RT2870STA.dat $pkgdir/etc/Wireless/RT2870STA/RT2870STA.dat
-  install -D -m 644 RT2870STACard.dat $pkgdir/etc/Wireless/RT2870STA/RT2870STACard.dat
+  install -D -m 755 os/linux/rt2870sta.ko ${pkgdir}/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rt2870sta.ko
+  install -D -m 644 RT2870STA.dat ${pkgdir}/etc/Wireless/RT2870STA/RT2870STA.dat
+  install -D -m 644 RT2870STACard.dat ${pkgdir}/etc/Wireless/RT2870STA/RT2870STACard.dat
 }
