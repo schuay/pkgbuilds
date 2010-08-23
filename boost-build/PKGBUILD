@@ -1,0 +1,24 @@
+# Contributor: Dennis Kempin <mail@dennis-kempin.de>
+pkgname=boost-build
+pkgver=2.0_m12
+pkgrel=3
+pkgdesc="Boost build system"
+arch=('i686' 'x86_64')
+url="http://www.boost.org/doc/tools/build/"
+license=('boost')
+depends=('boost' 'gcc')
+source=("http://downloads.sourceforge.net/sourceforge/boost/boost-build-2.0-m12.tar.bz2")
+md5sums=('38a40f1c0c2d6eb4f14aa4cf52e9236a') #generate with 'makepkg -g'
+
+build() {
+  cd $startdir/src/
+
+  mkdir -p $startdir/pkg/usr/share
+  mkdir -p $startdir/pkg/etc
+
+  rm -Rf $pkgname/jam_src
+
+  cp -R $pkgname $startdir/pkg/usr/share
+
+  echo "using gcc ;" > $startdir/pkg/etc/site-config.jam
+}
