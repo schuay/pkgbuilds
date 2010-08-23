@@ -10,6 +10,7 @@ depends=('lua' 'ncurses' 'sdl_image' 'sqlite3' 'libgl' 'mesa')
 makedepends=('bison' 'flex')
 conflicts=('crawl' 'stone-soup-tile' 'stone-soup-git')
 license=('custom')
+install=('stone-soup.install')
 backup=('usr/share/stone-soup/data/settings/tiles_options.txt'
         'usr/share/stone-soup/data/settings/init.txt')
 source=("http://downloads.sourceforge.net/sourceforge/crawl-ref/stone_soup-${pkgver}-nodeps.tar.bz2"
