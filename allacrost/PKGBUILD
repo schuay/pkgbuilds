@@ -2,36 +2,28 @@
 # Contributor: Christoph Zeiler <rabyte*gmail>
 
 pkgname=allacrost
-pkgver=20100228
+pkgver=20100824
+_pkgver=1.0.1
 pkgrel=1
-pkgdesc='A single player 2D role-playing game inspired by classic console RPGs.'
+pkgdesc='A single player 2D role-playing game inspired by classic console RPGs'
 arch=('i686' 'x86_64')
 url='http://www.allacrost.org/'
 license=('GPL2')
-depends=('libgl' 'libpng' 'libjpeg' 'qt' 'openal' 'libvorbis' 'sdl' 'sdl_net' 'sdl_ttf' 'lua' 'luabind')
+depends=('libgl' 'mesa' 'qt' 'openal' 'libvorbis' 'sdl_net' 'sdl_ttf' 'luabind')
 makedepends=('boost')
 options=('!emptydirs')
-source=("http://downloads.sourceforge.net/project/${pkgname}/unstable%20releases/${pkgname}_unstable_source_${pkgver}.tar.gz"
-        "config.patch")
-md5sums=('214cc179f5b384c388efbf38c8ed6dd0'
-         'a504fee94faa127777e5d8c9b8a1687b')
+source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}-demo/${_pkgver}/${pkgname}_demo_source_${_pkgver}.tar.gz")
+md5sums=('934a355f5fd07c7f740e1e75d6239f34')
 
 build() {
-  cd "${srcdir}/${pkgname}-02282010"
 
-  # remove lua checks from config file because they fail for some reason
-
-  patch -p2 < ../../config.patch
+  cd "${srcdir}/${pkgname}-${_pkgver}"
 
   ./configure --prefix=/usr
 
-  make CXXFLAGS="${CXXFLAGS}"
+  sed -i 's|bindir = ${prefix}/games|bindir = ${prefix}/bin|' Makefile
+  sed -i 's|datarootdir = ${prefix}/share/games|datarootdir = ${prefix}/share|' Makefile
+
   make DESTDIR="${pkgdir}" install
 
-  # create dummy executable in /usr/bin
-
-  mkdir -p "${pkgdir}/usr/bin"
-  echo "#!/bin/bash" >> "${pkgdir}/usr/bin/allacrost"
-  echo "/usr/games/allacrost" >> "${pkgdir}/usr/bin/allacrost"
-  chmod 755 "${pkgdir}/usr/bin/allacrost"
 }
