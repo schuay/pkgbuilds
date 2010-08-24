@@ -1,7 +1,7 @@
 # Maintainer: Jakob Gruber (jakob gruber kabelnet at)
 
 pkgname=svnedge
-pkgver=1.0.1
+pkgver=1.1.0
 pkgdesc="Subversion Edge includes a complete software stack of Apache, Subversion and ViewVC as well as a powerful web-based user interface for managing the server."
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -11,11 +11,11 @@ install="svnedge.install"
 
 if [ $CARCH == 'x86_64' ]; then
 	_pkgarch='x86_64'
-	md5sums=('c12fdb162f3a673b18b59ba48119f702' 'c746c20ea769161b1079ef69b1d59ae2')
+	md5sums=('5854cb5242e75c83734bc393cd38ecdb' 'c746c20ea769161b1079ef69b1d59ae2')
 	depends=('python' 'svn' 'openjdk6' 'lib32-libidn' 'lib32-libkrb53')
 else
 	_pkgarch='x86'
-	md5sums=('8c7833eb68e5d7c3d5a208384a542fe4' 'c746c20ea769161b1079ef69b1d59ae2')
+	md5sums=('034b644e14a8b08c2bce528bfc677e57' 'c746c20ea769161b1079ef69b1d59ae2')
 	depends=('python' 'svn' 'openjdk6' 'libidn' 'libkrb53')
 fi
 
