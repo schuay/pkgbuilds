@@ -14,9 +14,9 @@ source=("http://github.com/downloads/schuay/${pkgname}/${pkgname}-${pkgver}.tar.
 md5sums=('2580a9dfdb10a083e3160f890d392b74' 'e6530cad1fb85453a85c8c9e53d16a91')
 
 build() {
-  cd ${srcdir}/${pkgname}
+  cd ${srcdir}
 
-  QTDIR=/usr/share/qt ./configure --prefix=/usr
+  ./configure --prefix=/usr
   make
 
   install -D -m755 bin/qtwvdialer ${pkgdir}/usr/bin/qtwvdialer
