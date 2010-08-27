@@ -1,0 +1,24 @@
+#Contributor Marius Dransfeld <marius.dransfeld@gmail.com>
+pkgname=rt2860
+pkgver=2.3.0.0
+pkgrel=1
+pkgdesc="Drivers for rt2860/2890 chipset wireless cards"
+arch=('i686' 'x86_64')
+url="http://www.ralinktech.com/"
+license="GPL"
+depends=()
+install=install.rt2860
+source=('2010_01_29_RT2860_Linux_STA_v2.3.0.0.tar.bz2')
+
+build() {
+cd $startdir/src/2010_01_29_RT2860_Linux_STA_v2.3.0.0
+sed "s#\(/tftpboot\)#$startdir\1#" -i Makefile
+sed "s#HAS_WPA_SUPPLICANT=n#HAS_WPA_SUPPLICANT=y#" -i os/linux/config.mk
+sed "s#HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=n#HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y#" -i os/linux/config.mk
+sed "s#dev->nd_net#dev_net(dev)#" -i os/linux/rt_main_dev.c
+make || return 1
+install -D -m644 RT2860STA.dat $startdir/pkg/etc/Wireless/RT2860STA/RT2860STA.dat
+cd $startdir/src/2010_01_29_RT2860_Linux_STA_v2.3.0.0/os/linux/
+install -D -m 755 rt2860sta.ko $startdir/pkg/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rt2860sta.ko
+}
+md5sums=('f97d72097ef12b3a4978444d0c4741e2')
