@@ -14,7 +14,7 @@ makedepends=('jack' 'lame' 'fluidsynth' 'libcdio' 'libsidplay' 'wavpack'
              'libmpcdec' 'taglib' 'lirc-utils' 'curl' 'libmtp' 'sdl' 'projectm' 'imlib2'
              'neon' 'libmms' 'gtkglext' "audacious>=${pkgver}" 'ffmpeg' 'libsamplerate')
 optdepends=('jack: JACK output plugin'
-	    'libsamplerate: for JACK output'
+            'libsamplerate: for JACK output'
             'lame: FileWriter output plugin'
             'fluidsynth: FluidSynth backend for AMIDI-Plug input plugin'
             'libcdio: CD Audio input plugin'
@@ -30,22 +30,29 @@ optdepends=('jack: JACK output plugin'
             'imlib2: RootVis visualization plugin'
             'neon: HTTP transport plugin'
             'libmms: MMS transport plugin'
-	    'ffmpeg: for MPEG 4 Audio AAC')
+            'ffmpeg: for MPEG 4 Audio AAC')
 source=(http://distfiles.atheme.org/$pkgname-$pkgver.tgz)
 sha256sums=('c5a9b5efe0315e4c34e0e1922a8852561ea5608974d0adb0f9ce91c20e743a13')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
 
-  if [[ $CARCH = "i686" ]]; then
-    ./configure --prefix=/usr --disable-esd --disable-pulse \
-      --enable-amidiplug --disable-adplug --enable-chardet \
-      --disable-sse2
-  elif [[ $CARCH = "x86_64" ]]; then
-    ./configure --prefix=/usr --disable-esd --disable-pulse \
-      --enable-amidiplug --disable-adplug --enable-chardet
-  fi
+  cd "$srcdir/$pkgname-$pkgver"
+  
+  i686flags=''
+  [[ $CARCH = "i686" ]] && i686flags='--disable-sse2'
+
+  ./configure --prefix=/usr --disable-esd --disable-pulse \
+    --enable-amidiplug --disable-adplug --enable-chardet  \
+    $i686flags
 
   make
+
+}
+
+package() {
+
+  cd "$srcdir/$pkgname-$pkgver"
+
   make DESTDIR="$pkgdir" install
+
 }
