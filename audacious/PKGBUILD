@@ -3,7 +3,7 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=audacious
-pkgver=2.3
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="Media player based on BMP"
 arch=('i686' 'x86_64')
@@ -15,20 +15,20 @@ provides=('audacious-player')
 replaces=('audacious-player')
 install=audacious.install
 source=(http://distfiles.atheme.org/$pkgname-$pkgver.tgz)
-sha256sums=('b19b3a75d4bac535231a77b6f993519b599a9619ac46c4d5627fd2bc8337416f')
+sha256sums=('f2a2d45b9cb8fc24c1c55aef72a3a397a9a35776c18a94532b1bd3238577d5d8')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
 
   if [[ $CARCH == "i686" ]]; then
     ./configure --prefix=/usr \
-      --disable-sse2 || return 1
+      --disable-sse2
   elif [[ $CARCH == "x86_64" ]]; then
-    ./configure --prefix=/usr  || return 1
+    ./configure --prefix=/usr
   fi
 
-  make || return 1
-  make DESTDIR="$pkgdir" install || return 1
+  make
+  make DESTDIR="$pkgdir" install
 
   #fix for: tarball installs softlinks that point into buildroot
   rm -f "$pkgdir/usr/bin/audtool"
