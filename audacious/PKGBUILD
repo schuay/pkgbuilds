@@ -9,7 +9,7 @@ pkgdesc="Media player based on BMP"
 arch=('i686' 'x86_64')
 url="http://audacious-media-player.org/"
 license=('GPL3')
-depends=('gtk2' 'libmcs' 'dbus-glib' 'libxml2' 'desktop-file-utils' 'audacious-plugins')
+depends=('gtk2' 'libmcs' 'dbus-glib' 'libxml2' 'desktop-file-utils' 'audacious-plugins' 'hicolor-icon-theme' 'libsm')
 optdepends=('unzip: Zipped skins support')
 provides=('audacious-player')
 replaces=('audacious-player')
@@ -21,8 +21,7 @@ build() {
   cd "$srcdir/$pkgname-$pkgver"
 
   if [[ $CARCH == "i686" ]]; then
-    ./configure --prefix=/usr \
-      --disable-sse2
+    ./configure --prefix=/usr --disable-sse2
   elif [[ $CARCH == "x86_64" ]]; then
     ./configure --prefix=/usr
   fi
