@@ -4,15 +4,13 @@ pkgname=stone-soup
 pkgver=0.7.1
 pkgrel=2
 pkgdesc="An open-source, single-player, role-playing roguelike game of exploration and treasure-hunting"
-arch=('i686' 'x86_64' 'ppc')
+arch=('i686' 'x86_64')
 url='http://crawl.develz.org/'
 depends=('lua' 'ncurses' 'sdl_image' 'sqlite3' 'libgl' 'mesa' 'freetype2')
 makedepends=('bison' 'flex')
 conflicts=('crawl' 'stone-soup-tile' 'stone-soup-git')
 license=('custom')
 install=('stone-soup.install')
-backup=('usr/share/stone-soup/data/settings/tiles_options.txt'
-        'usr/share/stone-soup/data/settings/init.txt')
 source=("http://downloads.sourceforge.net/sourceforge/crawl-ref/stone_soup-${pkgver}-nodeps.tar.bz2"
         "${pkgname}.desktop")
 md5sums=('e5fa03fc9206ede190f288bf0b24500b'
