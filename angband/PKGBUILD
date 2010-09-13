@@ -1,3 +1,4 @@
+# Maintainer: schuay <jakob.gruber@gmail.com>
 # Maintainer: Mike Sampson <mike at sambodata dot com>
 # Contributor: Adrian Stratulat <adrian.stratulat at inboxcom>
 # Contributor: Anton Bazhenov <anton.bazhenov at gmail>
@@ -9,16 +10,18 @@
 pkgname=angband
 pkgver=3.1.2v2
 pkgrel=1
-pkgdesc="A roguelike dungeon-exploration game based on Tolkien's books"
+pkgdesc="A roguelike dungeon exploration game based on the writings of JRR Tolkien"
 arch=('i686' 'x86_64')
 url="http://rephial.org/"
 license=('GPL2' 'custom')
-depends=('sdl' 'sdl_image' 'sdl_ttf' 'sdl_mixer' 'sdl_sound' 'ncurses' 'libx11' 'libsm' 'gtk2')
-source=(http://rephial.org/downloads/3.1/$pkgname-$pkgver-src.tar.gz)
+depends=('sdl_image' 'sdl_ttf' 'sdl_mixer' 'ncurses' 'libglade')
+source=("http://rephial.org/downloads/${pkgver:0:3}/${pkgname}-${pkgver}-src.tar.gz")
 md5sums=('e6d8e441fb8df1534f6aa0d047685c57')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
+
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
   ./configure \
     --prefix=/usr \
     --bindir=/usr/bin \
@@ -27,9 +30,19 @@ build() {
     --with-libpath=/usr/share/angband \
     --enable-gtk \
     --enable-sdl \
-	--enable-sdl-mixer || return 1
-  make || return 1
-  make DESTDIR="$pkgdir" install
-  rm -f $pkgdir/usr/share/angband/*/delete.me
-  install -Dm644 copying.txt $pkgdir/usr/share/licenses/angband/COPYING
+    --enable-sdl-mixer
+
+  make
+
+}
+
+package() {
+
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  make DESTDIR="${pkgdir}" install
+
+  rm -f "${pkgdir}/usr/share/angband/*/delete.me"
+  install -Dm644 copying.txt "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+
 }
