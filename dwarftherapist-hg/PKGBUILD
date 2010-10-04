@@ -2,7 +2,7 @@
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 
 pkgname=dwarftherapist-hg
-pkgver=0.6.2
+pkgver=0.6.4
 pkgrel=1
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
@@ -12,8 +12,8 @@ depends=('qt')
 makedepends=('mercurial')
 conflicts=('dwarftherapist-svn')
 replaces=('dwarftherapist-svn')
-source=('fix_file_path.diff' 'dwarftherapist_qstring.patch')
-md5sums=('fc0248cad4168107bb23ea0d2ad7859d' '5a9617f3b542f3b85d4fc4d8e8350cb2')
+source=('fix_file_path.diff')
+md5sums=('fc0248cad4168107bb23ea0d2ad7859d')
 
 _hgtrunk=https://dwarftherapist.googlecode.com/hg/
 _hgmod=dwarftherapist
@@ -41,8 +41,6 @@ build() {
 
   # Change to more suitable linux paths
   patch -Np1 < "${srcdir}/fix_file_path.diff"
-  # Fix qt 4.7 compilation error
-  patch -Np1 < "${srcdir}/dwarftherapist_qstring.patch"
 
 
   # Build
