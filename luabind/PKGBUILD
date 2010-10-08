@@ -3,7 +3,7 @@
 # Contributor: rayte <rabyte.at.gmail.dot.com>
 
 pkgname=luabind
-pkgver=0.9
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="A library that helps you create bindings between C++ and Lua"
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 makedepends=('unzip' 'boost' 'boost-build')
 depends=('lua' 'gcc-libs')
 source=(http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz)
-md5sums=('cf7f0e9dc4c578d670d5b851e624c4d6')
+md5sums=('8a323fb51d07dad5cfdb12c432793d55')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}/
@@ -21,5 +21,6 @@ build() {
   bjam release --prefix=${pkgdir}/usr/ link=static,shared install
 
   # copy license
-  install -Dm644 ${srcdir}/${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ${srcdir}/${pkgname}-${pkgver}/LICENSE \
+      ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
