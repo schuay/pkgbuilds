@@ -1,7 +1,7 @@
 # Contributor: schuay <jakob dot gruber at gmail dot com>
 
 pkgname=maitreya
-pkgver=6.0rc2
+pkgver=6.0
 pkgrel=1
 pkgdesc="A free software for Vedic and western astrology"
 arch=(i686 x86_64)
@@ -10,7 +10,7 @@ url="http://www.saravali.de/maitreya/index.html"
 depends=('wxgtk')
 source=(http://prdownloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2)
 install=maitreya.install
-md5sums=('ab230df3761b416e5b7ab2097824fa63')
+md5sums=('e2a911f860056d9d92003f8ceaa43d2d')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
@@ -22,5 +22,8 @@ build() {
   find . -name 'Makefile' -print | while read file; do sed -i 's/-Wl,--as-needed//' $file; done
 
   make
+}
+package() {
+  cd ${srcdir}/${pkgname}-${pkgver}
   make DESTDIR=${pkgdir} install
 }
