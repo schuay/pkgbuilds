@@ -2,7 +2,7 @@
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 
 pkgname=dwarftherapist-hg
-pkgver=0.6.5
+pkgver=0.6.6
 pkgrel=1
 pkgdesc="An extension application for the fantastic game Dwarf Fortress"
 arch=('i686' 'x86_64')
