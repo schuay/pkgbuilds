@@ -1,14 +1,14 @@
 # Maintainer: schuay <jakob.gruber@gmail.com>
 
 pkgname=pcurses
-pkgver=20101106
+pkgver=20101118
 pkgrel=1
 pkgdesc='A curses package browser using libalpm'
 arch=('x86_64' 'i686')
 url="https://github.com/schuay/$pkgname"
 license=('GPL')
 depends=('ncurses' 'pacman')
-makedepends=('boost' 'qt' 'git')
+makedepends=('boost' 'git')
 
 _gitroot="git://github.com/schuay/$pkgname.git"
 _gitname=$pkgname
@@ -33,13 +33,12 @@ build() {
   git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname-build"
 
-  qmake $pkgname.pro
   make
 }
 
 package() {
   cd "$srcdir/$_gitname-build"
-  install -Dm755 $pkgname "$pkgdir"/usr/bin/$pkgname
+  make DESTDIR=$pkgdir install
 }
 
 # vim:set ts=2 sw=2 et:
