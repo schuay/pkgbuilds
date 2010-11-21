@@ -1,5 +1,5 @@
 pkgname=tome4
-pkgver='1.0.0beta13'
+pkgver='1.0.0beta14'
 pkgrel=1
 pkgdesc="An open-source, single-player, role-playing roguelike game set in the world of JRR Tolkien. Complete rewrite of ToME."
 arch=('i686' 'x86_64')
@@ -9,7 +9,7 @@ depends=('mesa' 'sdl_image' 'sdl_ttf' 'sdl_mixer')
 makedepends=('premake4')
 source=("http://te4.org/dl/t-engine/t-engine4-src-${pkgver}.tar.bz2"
         'tome4')
-md5sums=('dfc0c8908291d72ac807ca1024918055'
+md5sums=('c494739e1d5963ce9821a45982ac5e6b'
          'b68d32df2bd15eb34deeb72eecad35b6')
 
 build() {
