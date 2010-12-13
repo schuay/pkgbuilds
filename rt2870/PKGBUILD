@@ -2,11 +2,12 @@
 #Contributor Jakob Gruber <jakob.gruber(AT)kabelnet.at>
 pkgname=rt2870
 pkgver=2.4.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Drivers for rt2870 chipset wireless cards"
 arch=('i686' 'x86_64')
 url="http://eng.ralinktech.com.tw/support.php?s=2"
-depends=('kernel26' 'kernel26-headers')
+depends=('kernel26')
+makedepends=('kernel26-headers')
 license='GPL'
 install='install.rt2870'
 md5sums=('9afbb7c60bcf17a5e8bfad89a4b14e0f' '2964cc3b322f52db822b25be2e77c02d')
@@ -27,6 +28,10 @@ build() {
   patch -Np2 < ${srcdir}/2.6.35.patch
   
   make
+}
+package() {
+
+  cd ${srcdir}/${fileprefix}${pkgver}
 
   install -D -m 755 os/linux/rt2870sta.ko ${pkgdir}/lib/modules/$(uname -r)/kernel/drivers/net/wireless/rt2870sta.ko
   install -D -m 644 RT2870STA.dat ${pkgdir}/etc/Wireless/RT2870STA/RT2870STA.dat
