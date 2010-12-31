@@ -60,7 +60,7 @@ build() {
   install -D -m755 pslaunch ${pkgdir}/usr/bin/${pkgname}-setup
 
   # Remove unnecessary files
-  rm uninstall unscript.sh planeshift
+  rm -f uninstall unscript.sh planeshift
 
   cd ${pkgdir}/usr/bin/
 
