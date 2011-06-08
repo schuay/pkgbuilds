@@ -10,18 +10,23 @@ license=('GPL')
 source=("https://github.com/downloads/schuay/${pkgname}/${pkgname}-$pkgver.tar.bz2")
 md5sums=('4fdfe8a300373934877a70ae9643324c')
 depends=('sfml' 'qt' 'boost-libs')
-makedepends=('boost')
+makedepends=('boost' 'cmake')
+
+_builddir="${srcdir}/${pkgname}-build"
 
 build() {
-  cd ${srcdir}/${pkgname}
+  rm -rf "${_builddir}" && mkdir "${_builddir}"
+  cd "${_builddir}"
 
-  qmake
-  make setpath	#sets gfx path in source files
+  cmake \
+    -DCMAKE_BUILD_TYPE="Release" \
+    -DCMAKE_INSTALL_PREFIX="${pkgdir}/usr" \
+	-DPREFIX="/usr/" "${srcdir}/${pkgname}"
   make
 }
 
 package() {
   cd ${srcdir}/${pkgname}
 
-  make INSTALL_ROOT=${pkgdir} install
+  make install
 }
