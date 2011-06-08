@@ -12,21 +12,15 @@ md5sums=('4fdfe8a300373934877a70ae9643324c')
 depends=('sfml' 'qt' 'boost-libs')
 makedepends=('boost' 'cmake')
 
-_builddir="${srcdir}/${pkgname}-build"
-
 build() {
-  rm -rf "${_builddir}" && mkdir "${_builddir}"
-  cd "${_builddir}"
+  cd ${srcdir}/${pkgname}
 
-  cmake \
-    -DCMAKE_BUILD_TYPE="Release" \
-    -DCMAKE_INSTALL_PREFIX="${pkgdir}/usr" \
-	-DPREFIX="/usr/" "${srcdir}/${pkgname}"
+  cmake -DCMAKE_INSTALL_PREFIX="/usr" .
   make
 }
 
 package() {
   cd ${srcdir}/${pkgname}
 
-  make install
+  make DESTDIR="${pkgdir}" install
 }
