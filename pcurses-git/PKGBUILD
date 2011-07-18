@@ -1,18 +1,20 @@
 # Maintainer: schuay <jakob.gruber@gmail.com>
 
-pkgname=pcurses
-pkgver=20110717
+pkgname=pcurses-git
+_pkgname=pcurses
+pkgver=20110718
 pkgrel=1
 pkgdesc='A curses package browser using libalpm'
 arch=('x86_64' 'i686')
-url="https://github.com/schuay/$pkgname"
+url="https://github.com/schuay/$_pkgname"
 license=('GPL')
-depends=('ncurses' 'pacman')
+conflicts=('pcurses')
+depends=('ncurses' 'pacman-git')
 makedepends=('boost' 'git' 'cmake')
 
-_gitroot="git://github.com/schuay/$pkgname.git"
-_gitname=$pkgname
-_gitbranch='pacman3'
+_gitroot="git://github.com/schuay/$_pkgname.git"
+_gitname=$_pkgname
+_gitbranch='working'
 
 build() {
   cd "$srcdir"
@@ -33,7 +35,7 @@ build() {
   mkdir "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname-build"
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr "$srcdir/$pkgname"
+  cmake -DCMAKE_INSTALL_PREFIX=/usr "$srcdir/$_pkgname"
   make
 }
 
