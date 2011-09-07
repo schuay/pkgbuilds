@@ -1,5 +1,5 @@
 apt-get update
-apt-get install libsfml-dev libqt4-dev dh-make virtualbox-ose-guest-x11 libboost-dev libboost-thread-dev
+apt-get install libsfml-dev libqt4-dev dh-make virtualbox-ose-guest-x11 libboost-dev libboost-thread-dev devscripts
 
 extract source to pkgname-pkgver directory (BASEDIR)
 within BASEDIR, run dh_make -f ../SOURCEARCHIVE
@@ -7,9 +7,9 @@ within BASEDIR, run dh_make -f ../SOURCEARCHIVE
 place all files from this folder (except this one) in BASEDIR/debian
 
 for binary package:
-dpkg-buildpackage
+dpkg-buildpackage -b
 
-for source package suitable for ppa:
+for source package suitable for ppa (~/.gnupg folder must exist + be configured correctly):
 debuild -S -sa
 
 to upload to ppa:

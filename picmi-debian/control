@@ -8,6 +8,6 @@ Homepage: http://github.com/schuay/picmi
 
 Package: picmi
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libsfml-graphics1.5, libqtgui4, libboost-thread1.40.0
+Depends: ${shlibs:Depends}, ${misc:Depends}, libsfml-graphics1.6, libqtgui4, libboost-thread1.42.0
 Description: A picross and minesweeper clone.
  A game collection containing containing picross and minesweeper clones, written in C++.
