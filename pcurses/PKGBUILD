@@ -3,7 +3,7 @@
 pkgname=pcurses
 pkgver=1.5
 pkgrel=1
-pkgdesc='A curses package browser using libalpm'
+pkgdesc='A curses package management tool using libalpm'
 arch=('x86_64' 'i686')
 url="https://github.com/schuay/$pkgname"
 license=('GPL')
